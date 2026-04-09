@@ -28,7 +28,7 @@ export default function TaskManager() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('http://localhost:5000/tasks');
+      const response = await fetch('https://assignment1-global-trend.onrender.com');
       if (!response.ok) throw new Error('Failed to fetch tasks');
       const data = await response.json();
       setTasks(data);
@@ -41,7 +41,7 @@ export default function TaskManager() {
 
   const addTask = async (title: string) => {
     try {
-      const response = await fetch('http://localhost:5000/tasks', {
+      const response = await fetch('https://assignment1-global-trend.onrender.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title }),
@@ -56,7 +56,7 @@ export default function TaskManager() {
 
   const toggleTask = async (id: string, completed: boolean) => {
     try {
-      const response = await fetch(`http://localhost:5000/tasks/${id}`, {
+      const response = await fetch(`https://assignment1-global-trend.onrender.com${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ completed: !completed }),
@@ -71,7 +71,7 @@ export default function TaskManager() {
 
   const deleteTask = async (id: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/tasks/${id}`, {
+      const response = await fetch(`https://assignment1-global-trend.onrender.com${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Failed to delete task');
