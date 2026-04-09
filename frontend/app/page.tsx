@@ -19,7 +19,6 @@ export default function TaskManager() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch tasks on mount
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -28,7 +27,7 @@ export default function TaskManager() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('https://assignment1-global-trend.onrender.com');
+      const response = await fetch('https://assignment1-global-trend.onrender.com/tasks');
       if (!response.ok) throw new Error('Failed to fetch tasks');
       const data = await response.json();
       setTasks(data);
@@ -41,7 +40,7 @@ export default function TaskManager() {
 
   const addTask = async (title: string) => {
     try {
-      const response = await fetch('https://assignment1-global-trend.onrender.com', {
+      const response = await fetch('https://assignment1-global-trend.onrender.com/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title }),
@@ -56,7 +55,7 @@ export default function TaskManager() {
 
   const toggleTask = async (id: string, completed: boolean) => {
     try {
-      const response = await fetch(`https://assignment1-global-trend.onrender.com${id}`, {
+      const response = await fetch(`https://assignment1-global-trend.onrender.com/tasks/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ completed: !completed }),
@@ -71,7 +70,7 @@ export default function TaskManager() {
 
   const deleteTask = async (id: string) => {
     try {
-      const response = await fetch(`https://assignment1-global-trend.onrender.com${id}`, {
+      const response = await fetch(`https://assignment1-global-trend.onrender.com/tasks/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Failed to delete task');
@@ -83,7 +82,6 @@ export default function TaskManager() {
 
   return (
     <main className="min-h-screen bg-background p-4 sm:p-8 relative overflow-hidden">
-      {/* Animated background elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
